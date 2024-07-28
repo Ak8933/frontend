@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import TransactionsTable from './components/TransactionsTable';
+import TransactionStatistics from './components/TransactionStatistics';
+import BarChartComponent from './components/BarChartComponent';
+import './App.css'; // Import the CSS file
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    const [selectedMonth, setSelectedMonth] = useState('March');
+
+    return (
+        <div className="app-container">
+            <h1>Transaction Dashboard</h1>
+            <select
+                value={selectedMonth}
+                onChange={(e) => setSelectedMonth(e.target.value)}
+                className="month-selector"
+            >
+                {['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'].map((month) => (
+                    <option key={month} value={month}>{month}</option>
+                ))}
+            </select>
+
+            <TransactionStatistics selectedMonth={selectedMonth} />
+            <BarChartComponent selectedMonth={selectedMonth} />
+            <TransactionsTable selectedMonth={selectedMonth} />
+        </div>
+    );
+};
 
 export default App;
